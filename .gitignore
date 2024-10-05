@@ -4,3 +4,9 @@
 
 ### target ###
 target
+
+### Logs ###
+logs
+
+### iml ###
+*.iml

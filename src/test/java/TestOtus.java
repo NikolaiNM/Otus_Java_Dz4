@@ -5,12 +5,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.time.Duration;
+
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestOtus {
+
+
+    private static final Logger logger = LogManager.getLogger(TestOtus.class);
 
     public enum Mode {
         HEADLESS("--headless"),
@@ -34,7 +39,9 @@ public class TestOtus {
 
     @BeforeAll
     public static void webDriverInstall() {
+        logger.info("Старт прогона \n--------------------------------------------------------------------------");
         WebDriverManager.chromedriver().setup();
+        logger.info("Установка WebDriver...");
     }
 
 //    @BeforeEach
@@ -43,16 +50,19 @@ public class TestOtus {
 
     @Test
     public void firstTest() throws InterruptedException {
+        logger.info("Запуск первого теста...");
         mode = Mode.HEADLESS;
         webDriverStart();
         WebElement element = driver.findElement(By.cssSelector("#textInput"));
         element.sendKeys("ОТУС");
         Assertions.assertEquals("ОТУС", element.getAttribute("value"));
+        logger.info("Первый тест завершен.");
         //Thread.sleep(5000);
     }
 
     @Test
     public void secondTest() throws InterruptedException {
+        logger.info("Запуск второго теста...");
         mode = Mode.KIOSK;
         webDriverStart();
 
@@ -66,11 +76,13 @@ public class TestOtus {
 
         // Проверяем текст элемента <h2>
         Assertions.assertEquals("Это модальное окно", modalHeader.getText());
+        logger.info("Второй тест завершен.");
         //Thread.sleep(5000);
     }
 
     @Test
     public void thirdTest() throws InterruptedException {
+        logger.info("Запуск третьего теста...");
         mode = Mode.FULL_SCREEN;
         webDriverStart();
         WebElement elementName = driver.findElement(By.cssSelector("#name"));
@@ -90,24 +102,33 @@ public class TestOtus {
         // Проверяем, что сообщение соответствует ожидаемому
         assertTrue(messageText.contains(expectedMessage),
                 "Сообщение не соответствует ожидаемому: " + messageText);
+        logger.info("Третий тест завершен.");
         //Thread.sleep(5000);
     }
 
     private void webDriverStart() {
+        logger.info("Запуск веб-драйвера с режимом: {}", mode);
         ChromeOptions options = new ChromeOptions();
         if (mode.getArgument() != null) {
             options.addArguments(mode.getArgument());
         }
         driver = new ChromeDriver(options);
         driver.get("https://otus.home.kartushin.su/training.html");
+        logger.info("Веб-драйвер запущен и открыта страница.");
     }
 
     @AfterEach
     public void webDriverStop() {
         if (driver != null) {
-            driver.close();
             driver.quit();
+            driver = null;
+            logger.info("Веб-драйвер закрыт.");
         }
+    }
+
+    @AfterAll
+    public static void endTesting() {
+        logger.info("Завершение прогона \n--------------------------------------------------------------------------");
     }
 }
 //    @Test
