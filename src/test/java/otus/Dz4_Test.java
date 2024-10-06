@@ -1,3 +1,6 @@
+package otus;
+
+import factory.WebDriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
@@ -8,14 +11,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.time.Duration;
-
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestOtus {
+public class Dz4_Test {
 
 
-    private static final Logger logger = LogManager.getLogger(TestOtus.class);
+    private static final Logger logger = LogManager.getLogger(Dz4_Test.class);
+
+    private TestInfo testInfo;
 
     public enum Mode {
         HEADLESS("--headless"),
@@ -44,25 +47,31 @@ public class TestOtus {
         logger.info("Установка WebDriver...");
     }
 
-//    @BeforeEach
-//    public void setUp() {
-//    }
+    @BeforeEach
+    public void setUp(TestInfo testInfo) {
+        this.testInfo = testInfo;
+        logger.info("Запуск теста: " + testInfo.getDisplayName());
+        //
+        // driver = new WebDriverFactory().getDriver();
+    }
+
+private String getName() {
+    return new Exception().getStackTrace()[1].getMethodName();
+}
 
     @Test
     public void firstTest() throws InterruptedException {
-        logger.info("Запуск первого теста...");
         mode = Mode.HEADLESS;
         webDriverStart();
         WebElement element = driver.findElement(By.cssSelector("#textInput"));
         element.sendKeys("ОТУС");
         Assertions.assertEquals("ОТУС", element.getAttribute("value"));
-        logger.info("Первый тест завершен.");
+        logger.info(getName() + " завершен.");
         //Thread.sleep(5000);
     }
 
     @Test
     public void secondTest() throws InterruptedException {
-        logger.info("Запуск второго теста...");
         mode = Mode.KIOSK;
         webDriverStart();
 
@@ -76,13 +85,11 @@ public class TestOtus {
 
         // Проверяем текст элемента <h2>
         Assertions.assertEquals("Это модальное окно", modalHeader.getText());
-        logger.info("Второй тест завершен.");
         //Thread.sleep(5000);
     }
 
     @Test
     public void thirdTest() throws InterruptedException {
-        logger.info("Запуск третьего теста...");
         mode = Mode.FULL_SCREEN;
         webDriverStart();
         WebElement elementName = driver.findElement(By.cssSelector("#name"));
@@ -102,7 +109,6 @@ public class TestOtus {
         // Проверяем, что сообщение соответствует ожидаемому
         assertTrue(messageText.contains(expectedMessage),
                 "Сообщение не соответствует ожидаемому: " + messageText);
-        logger.info("Третий тест завершен.");
         //Thread.sleep(5000);
     }
 
@@ -119,12 +125,14 @@ public class TestOtus {
 
     @AfterEach
     public void webDriverStop() {
+        logger.info("Тест {} завершен.", testInfo.getDisplayName());
         if (driver != null) {
             driver.quit();
             driver = null;
             logger.info("Веб-драйвер закрыт.");
         }
     }
+
 
     @AfterAll
     public static void endTesting() {
