@@ -23,7 +23,7 @@ public class Dz4Tests {
     private TestInfo testInfo;
     private Mode mode = Mode.DEFAULT;
 
-    private void webDriverStart() {
+    private void initializeWebDriver() {
         logger.info("Запуск веб-драйвера с режимом: {}", mode);
         ChromeOptions options = new ChromeOptions();
         if (mode.getArgument() != null) {
@@ -50,7 +50,7 @@ public class Dz4Tests {
     @Test
     public void firstTest() {
         mode = Mode.HEADLESS;
-        webDriverStart();
+        initializeWebDriver();
         WebElement element = driver.findElement(By.cssSelector("#textInput"));
         element.sendKeys("ОТУС");
         Assertions.assertEquals("ОТУС", element.getAttribute("value"));
@@ -59,8 +59,7 @@ public class Dz4Tests {
     @Test
     public void secondTest() {
         mode = Mode.KIOSK;
-        webDriverStart();
-
+        initializeWebDriver();
         // Нажимаем на кнопку для открытия модального окна
         WebElement openModalBtn = driver.findElement(By.cssSelector("#openModalBtn"));
         openModalBtn.click();
@@ -76,7 +75,7 @@ public class Dz4Tests {
     @Test
     public void thirdTest() {
         mode = Mode.FULL_SCREEN;
-        webDriverStart();
+        initializeWebDriver();
         WebElement elementName = driver.findElement(By.cssSelector("#name"));
         elementName.sendKeys("Nick");
         WebElement elementEmail = driver.findElement(By.cssSelector("#email"));
