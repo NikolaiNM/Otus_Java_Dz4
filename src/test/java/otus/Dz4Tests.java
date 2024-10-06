@@ -16,10 +16,10 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Dz4Test {
+public class Dz4Tests {
 
     WebDriver driver;
-    private static final Logger logger = LogManager.getLogger(Dz4Test.class);
+    private static final Logger logger = LogManager.getLogger(Dz4Tests.class);
     private TestInfo testInfo;
     private Mode mode = Mode.DEFAULT;
 
@@ -71,7 +71,6 @@ public class Dz4Test {
 
         // Проверяем текст элемента <h2>
         Assertions.assertEquals("Это модальное окно", modalHeader.getText());
-        //Thread.sleep(5000);
     }
 
     @Test
