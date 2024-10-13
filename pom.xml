@@ -87,6 +87,7 @@
                 <configuration>
                     <systemPropertyVariables>
 <!--                        <browser>chrome</browser>-->
+<!--                        <testing.url>https://otus.home.kartushin.su</testing.url>-->
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

@@ -18,6 +18,7 @@ public class KioskModeTests {
     private WebDriver driver;
     private TestInfo testInfo;
     private static final Logger logger = LogManager.getLogger(FullScreenModeTests.class);
+    private static final String TESTING_URL = System.getProperty("testing.url") + "/training.html";
 
     @BeforeAll
     public static void webDriverInstall(){
@@ -30,7 +31,7 @@ public class KioskModeTests {
 
         WebDriverFactory factory = new WebDriverFactory();
         driver = factory.getDriver(Mode.KIOSK);
-        driver.get("https://otus.home.kartushin.su/training.html");
+        driver.get(TESTING_URL);
     }
 
     @AfterEach
@@ -45,15 +46,21 @@ public class KioskModeTests {
 
     @Test
     public void secondTest() {
+
         // Нажимаем на кнопку для открытия модального окна
         WebElement openModalBtn = driver.findElement(By.cssSelector("#openModalBtn"));
+
+        // Проверка открыта ли модальное окно
+        WebElement modalWindow = driver.findElement(By.cssSelector("#myModal"));
+        Assertions.assertFalse(modalWindow.isDisplayed(), "Модальное окно уже открыто");
+
         openModalBtn.click();
 
-        // Ждем, пока элемент <h2> станет доступным
+        // Ждем, пока элемент станет доступным
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement modalHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#myModal h2")));
 
-        // Проверяем текст элемента <h2>
+        // Проверяем текст элемента
         Assertions.assertEquals("Это модальное окно", modalHeader.getText());
     }
 }

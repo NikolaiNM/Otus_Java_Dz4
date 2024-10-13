@@ -8,7 +8,7 @@ public class ChromeSettings implements IWebDriverSettings {
 
     private final Mode mode;
 
-    // Конструктор принимает Mode
+    // Получаем Mode
     public ChromeSettings(Mode mode) {
         this.mode = mode;
     }

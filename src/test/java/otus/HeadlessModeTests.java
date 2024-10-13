@@ -14,6 +14,7 @@ public class HeadlessModeTests {
     private WebDriver driver;
     private TestInfo testInfo;
     private static final Logger logger = LogManager.getLogger(FullScreenModeTests.class);
+    private static final String TESTING_URL = System.getProperty("testing.url") + "/training.html";
 
     @BeforeAll
     public static void webDriverInstall(){
@@ -26,7 +27,7 @@ public class HeadlessModeTests {
 
         WebDriverFactory factory = new WebDriverFactory();
         driver = factory.getDriver(Mode.HEADLESS);
-        driver.get("https://otus.home.kartushin.su/training.html");
+        driver.get(TESTING_URL);
     }
 
     @AfterEach
