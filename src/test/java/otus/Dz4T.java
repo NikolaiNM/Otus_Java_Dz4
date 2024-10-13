@@ -16,12 +16,12 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Dz4Tests {
+public class Dz4T {
 
-    WebDriver driver;
-    private static final Logger logger = LogManager.getLogger(Dz4Tests.class);
+    private WebDriver driver;
+    private static final Logger logger = LogManager.getLogger(Dz4T.class);
     private TestInfo testInfo;
-    private Mode mode = Mode.DEFAULT;
+    private Mode mode;
 
     private void initializeWebDriver() {
         logger.info("Запуск веб-драйвера с режимом: {}", mode);

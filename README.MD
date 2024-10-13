@@ -4,7 +4,7 @@
 Данный проект представляет собой набор автотестов для веб-приложения, разработанных с использованием Java и Selenium WebDriver. URL: [https://otus.home.kartushin.su/training.html](https://otus.home.kartushin.su/training.html).
 
 ## Структура проекта
-- **otus.Dz4Tests.java**: основной класс, содержащий тесты.
+- **otus.Dz4T.java**: основной класс, содержащий тесты.
 - **Mode**: перечисление для выбора режима работы браузера (HEADLESS, KIOSK, FULL_SCREEN, DEFAULT).
 - **firstTest**:
   - Открыть Chrome в headless режиме 
