@@ -86,7 +86,8 @@
                 <version>${surefire.plugin.version}</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <browser>chrome</browser>
+<!--                        <browser>chrome</browser>-->
+<!--                        <testing.url>https://otus.home.kartushin.su</testing.url>-->
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
